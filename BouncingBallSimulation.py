@@ -1,26 +1,32 @@
 import pygame
 
+
+GameExit = False
+###Colors to use in the simulation###
 black = [0,0,0]
 white = [255,255,255]
 red = [255,0,0]
 green = [0,255,255]
 blue = [0,0,255]
-velocity_x = 0
-velocity_y = 10
-GameExit = False
+
+###variable for physics of the ball###
+velocity_x = 0 #initial velocity in x direction
+velocity_y = 10 #initial velocity in y direction
 block_size = 40
 x_pos = 100 #initially
 y_pos = 100 #initially
 move = 10
-taketothis = 0
+displacement = 0
 jump_power = 50
-g = 10
-t = 0.17
+g = 10 #gravity
+t = 0.17 
 energy_loss = 0.8
+
+
 pygame.init()
 clock = pygame.time.Clock()
 disp = pygame.display.set_mode((800,600))
-def drawback(x,y,size):
+def draw_ball(x,y,size):
     pygame.draw.circle(disp,red,(x,y),size)
 
     
@@ -50,12 +56,12 @@ while not GameExit:
         velocity_y = -velocity_y
     
     clock.tick(60)
-    taketothis = velocity_y*t + 0.5*g*t*t
+    displacement = velocity_y*t + 0.5*g*t*t
     velocity_y += g*t
-    y_pos += int(taketothis)
+    y_pos += int(displacement)
     x_pos += int(velocity_x)
     disp.fill(white)
-    drawback(x_pos,y_pos,block_size)
+    draw_ball(x_pos,y_pos,block_size)
     pygame.display.update()
 
     
